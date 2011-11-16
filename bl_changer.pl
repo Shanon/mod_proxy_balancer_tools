@@ -47,7 +47,6 @@ sub main{
 		my $config_data = config2data();
 		my $nonce = get_nonce($config_data);
 		my @member_array = get_change_active_params($config_data);
-#		print Dumper(@member_array) . "\n";
 		confirm_params(@member_array) unless($_opt{force});
 		my (@params) = create_get_url($nonce, @member_array);
 		request_param(@params);
@@ -88,7 +87,6 @@ sub request_param{
     my $ua = LWP::UserAgent->new();
     $ua->timeout(30);
 	foreach my $p (@params){
-		#print sprintf('%s://%s%s', $_opt{no_ssl} ? 'http':'https', $_opt{domain}, $p) . "\n";
 		my $res = $ua->get(sprintf('%s://%s%s', $_opt{no_ssl} ? 'http':'https', $_opt{domain}, $p));
 		die 'Request http ERROR' unless($res->is_success);
 		sleep(1);
